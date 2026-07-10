@@ -1,25 +1,40 @@
 <?php
 
-class Solution {
+
+class Solution
+{
 
     /**
      * @param String[] $strs
      * @return String
      */
-    function longestCommonPrefix($strs) {
-        $prefix = '';
-        for ($j = 0; $j < 200; $j++) {
-            $tmp = $strs[0][$j];
-            for ($i = 0; $i < count($strs); $i++) {
-                if ($tmp != $strs[$i][$j]) return $prefix;
+    function longestCommonPrefix($strs)
+    {
+        $prefix = $strs[0];
+        $pref_len = strlen($prefix);
+        $perf_len_loop = $pref_len;
+        for ($j = 1; $j < 200; $j++) {
+            $tmp = $strs[$j] ?? '';
+            if (isset($strs[$j]) && $strs[$j] == '') return "";
+            if (empty($strs[$j])) return $prefix;
+            $next_str = $strs[$j];
+            for ($i = 0; $i < $perf_len_loop; $i++) {
+                if (mb_substr($next_str, 0, $pref_len) != $prefix) {
+                    $pref_len--;
+                    $prefix = mb_substr($prefix, 0, $pref_len);
+                }
+                if ($pref_len == 0) return "";
             }
-            $prefix .= $tmp;
+            $perf_len_loop = $pref_len;
         }
         return $prefix;
     }
 }
 
-$strs = ["flower","flow","flight"];
-$strs = ["dog","racecar","car"];
+$strs = ["dog", "racecar", "car"];
+$strs = ["flower", "flow", "flight"];
+$strs = ["flower","flower","flower","flower"];
+$strs = ["a","b"];
+$strs = ["abab","aba",""];
 $obg = new Solution();
 echo $obg->longestCommonPrefix($strs);
