@@ -12,7 +12,7 @@ class Solution
     {
         // val
         if (!$s) return "";
-        if (strlen($s) == 1) return $s;
+        //if (strlen($s) == 1) return $s;
         // vars
         $start = 0;
         $end = 0;
@@ -27,9 +27,7 @@ class Solution
                 $end = $i + floor($max_len / 2);
             }
         }
-
-        //if (strlen($s) == 2) return mb_substr($s, $start, ($end + 1));
-        return mb_substr($s, $start, ($end + 1));
+        return mb_substr($s, $start, ($end - $start + 1));
     }
 
     function expandAroundeCenter ($s, $left, $right) {
@@ -42,11 +40,11 @@ class Solution
 }
 
 $str = "";
-$str = "babad";
-$str = "cbbd";
 $str = "a";
+$str = "cbbd";
 $str = "bb";
 $str = "ccc";
+$str = "dabab";
 
 $obj = new Solution();
 echo $obj->longestPalindrome($str);
